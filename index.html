@@ -1,79 +1,130 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>PROJECT DERBY</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-    <!-- タイトル画面 -->
-    <div id="titleScreen">
+<!-- ========================= -->
+<!-- タイトル画面 -->
+<!-- ========================= -->
 
-        <h1>PROJECT DERBY</h1>
-        <h2>競馬シミュレーター</h2>
+<div id="titleScreen">
 
-        <div class="menu">
-            <button id="newGameBtn">新しいゲーム</button>
-            <button id="raceBtn">単発レース</button>
-            <button id="optionBtn">オプション</button>
-        </div>
+    <h1>PROJECT DERBY</h1>
 
-        <p class="version">Version 0.3.0</p>
+    <h2>競馬シミュレーター</h2>
 
-    </div>
+    <div class="menu">
 
-    <!-- レース設定画面 -->
-    <div id="raceSetup" style="display:none;">
+        <button id="newGameBtn">
+            新しいゲーム
+        </button>
 
-        <h1>レース設定</h1>
+        <button id="raceBtn">
+            単発レース
+        </button>
 
-        <p>距離</p>
-        <select id="distance">
-            <option>1200m</option>
-            <option>1400m</option>
-            <option>1600m</option>
-            <option>1800m</option>
-            <option selected>2000m</option>
-            <option>2400m</option>
-            <option>3200m</option>
-        </select>
-
-        <p>天候</p>
-        <select id="weather">
-            <option>晴</option>
-            <option>曇</option>
-            <option>雨</option>
-        </select>
-
-        <p>馬場</p>
-        <select id="ground">
-            <option>良</option>
-            <option>稍重</option>
-            <option>重</option>
-            <option>不良</option>
-        </select>
-
-        <p>出走頭数</p>
-        <select id="horseCount">
-            <option>8</option>
-            <option>10</option>
-            <option selected>12</option>
-            <option>14</option>
-            <option>16</option>
-            <option>18</option>
-        </select>
-
-        <br><br>
-
-        <button id="startRaceBtn">出走馬を見る</button>
-        <button id="backBtn">戻る</button>
+        <button id="optionBtn">
+            オプション
+        </button>
 
     </div>
 
-    <!-- 出走馬一覧画面 -->
-   <div id="horseListScreen" style="display:none;">
+    <p class="version">
+        Version 0.5.0
+    </p>
+
+</div>
+
+<!-- ========================= -->
+<!-- レース設定 -->
+<!-- ========================= -->
+
+<div id="raceSetup" style="display:none;">
+
+    <h1>レース設定</h1>
+
+    <p>距離</p>
+
+    <select id="distance">
+
+        <option>1200m</option>
+        <option>1400m</option>
+        <option>1600m</option>
+        <option>1800m</option>
+        <option selected>2000m</option>
+        <option>2400m</option>
+        <option>3200m</option>
+
+    </select>
+
+    <p>天候</p>
+
+    <select id="weather">
+
+        <option>晴</option>
+        <option>曇</option>
+        <option>雨</option>
+
+    </select>
+
+    <p>馬場</p>
+
+    <select id="ground">
+
+        <option>良</option>
+        <option>稍重</option>
+        <option>重</option>
+        <option>不良</option>
+
+    </select>
+
+    <p>出走頭数</p>
+
+    <select id="horseCount">
+
+        <option>8</option>
+        <option>10</option>
+        <option selected>12</option>
+        <option>14</option>
+        <option>16</option>
+        <option>18</option>
+
+    </select>
+
+    <br><br>
+
+    <button id="startRaceBtn">
+
+        出走馬を見る
+
+    </button>
+
+    <button id="backBtn">
+
+        戻る
+
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- 出走馬一覧 -->
+<!-- ========================= -->
+
+<div id="horseListScreen" style="display:none;">
 
     <h1>出走馬一覧</h1>
 
@@ -81,27 +132,97 @@
 
     <br>
 
-    <button id="raceStart">レース開始</button>
-    <button id="horseBackBtn">戻る</button>
+    <button id="raceStart">
+
+        レース開始
+
+    </button>
+
+    <button id="horseBackBtn">
+
+        戻る
+
+    </button>
 
 </div>
+
+<!-- ========================= -->
+<!-- 馬詳細 -->
+<!-- ========================= -->
+
 <div id="horseDetailScreen" style="display:none;">
 
     <h1 id="horseName"></h1>
 
     <p id="horseSpeed"></p>
+
     <p id="horseStamina"></p>
+
     <p id="horseSprint"></p>
 
     <br>
 
-    <button id="detailBackBtn">戻る</button>
+    <button id="detailBackBtn">
+
+        戻る
+
+    </button>
 
 </div>
 
-    
-    <script src="horses.js"></script>
-    <script src="script.js"></script>
+<!-- ========================= -->
+<!-- レース画面 NEW -->
+<!-- ========================= -->
+
+<div id="raceScreen" style="display:none;">
+
+    <h1>🏇 レース実況</h1>
+
+    <hr>
+
+    <h2 id="raceDistance">
+
+        芝 2000m
+
+    </h2>
+
+    <p id="raceInfo">
+
+        晴　良馬場
+
+    </p>
+
+    <hr>
+
+    <h3>
+
+        実況
+
+    </h3>
+
+    <div id="commentary">
+
+        ゲートイン開始...
+
+    </div>
+
+    <hr>
+
+    <h3>
+
+        順位
+
+    </h3>
+
+    <div id="ranking">
+
+    </div>
+
+</div>
+
+<script src="horses.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
