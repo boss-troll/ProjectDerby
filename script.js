@@ -1,3 +1,4 @@
+let raceHorses = [];
 const horseListScreen = document.getElementById("horseListScreen");
 const horseList = document.getElementById("horseList");
 const titleScreen = document.getElementById("titleScreen");
@@ -22,47 +23,35 @@ document.getElementById("startRaceBtn").onclick = function(){
     raceSetup.style.display="none";
     horseListScreen.style.display="block";
 
-    const horseNames=[
-        "サンダーボルト",
-        "ブラックローズ",
-        "グランフェニックス",
-        "シルバーウイング",
-        "ライトニング",
-        "シャイニングスター",
-        "レッドスピア",
-        "ブルーオーシャン",
-        "ゴールドキング",
-        "ミラクルロード",
-        "エターナル",
-        "ストームランナー",
-        "ダークホース",
-        "ホワイトファング",
-        "スカイアロー"
-    ];
+
 
     horseList.innerHTML="";
 
-    for(let i=0;i<12;i++){
+raceHorses = [...horses];
 
-        const speed=Math.floor(Math.random()*31)+70;
-        const stamina=Math.floor(Math.random()*31)+70;
-        const sprint=Math.floor(Math.random()*31)+70;
+raceHorses.sort(() => Math.random() - 0.5);
 
-        horseList.innerHTML+=`
-        <p>
-        ${i+1}. ${horseNames[i]}
+raceHorses = raceHorses.slice(0,12);
+for(let i=0; i<12; i++){
+
+    const horse = raceHorses[i];
+
+    horseList.innerHTML += `
+    <p>
+        ${i+1}. ${horse.name}
         <br>
-        スピード ${speed}
-        スタミナ ${stamina}
-        瞬発力 ${sprint}
-        </p>
-        <hr>
-        `;
+        スピード ${horse.speed}
+        <br>
+        スタミナ ${horse.stamina}
+        <br>
+        瞬発力 ${horse.sprint}
+    </p>
+    <hr>
+    `;
 
-    }
+}
 
-};
-
+};   
 document.getElementById("newGameBtn").onclick = function(){
 
     alert("開発中です！");
