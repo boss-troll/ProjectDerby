@@ -171,7 +171,7 @@
 </div>
 
 <!-- ========================= -->
-<!-- レース画面 NEW -->
+<!-- レース画面 -->
 <!-- ========================= -->
 
 <div id="raceScreen" style="display:none;">
@@ -180,49 +180,59 @@
 
     <hr>
 
-    <h2 id="raceDistance">
+    <h2 id="raceDistance"></h2>
 
-        芝 2000m
-
-    </h2>
-
-    <p id="raceInfo">
-
-        晴　良馬場
-
-    </p>
+    <p id="raceInfo"></p>
 
     <hr>
 
-    <h3>
+    <h3>実況</h3>
 
-        実況
-
-    </h3>
-
-    <div id="commentary">
-
-        ゲートイン開始...
-
-    </div>
+    <div id="commentary"></div>
 
     <hr>
 
-    <h3>
+    <h3>順位</h3>
 
-        順位
-
-    </h3>
-
-    <div id="ranking">
-
-    </div>
+    <div id="ranking"></div>
 
 </div>
 
-<script src="horses.js"></script>
+<!-- ========================= -->
+<!-- Derby News -->
+<!-- ========================= -->
 
+<div id="newsScreen" style="display:none;">
+
+    <h1>📰 DERBY NEWS</h1>
+
+    <div id="newsList">
+
+        <div class="newsCard">
+
+            <h2>本日のトップニュース</h2>
+
+            <p>
+                PROJECT DERBYへようこそ。
+                今日も新たなドラマが始まります。
+            </p>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <button id="newsBackBtn">
+        タイトルへ戻る
+    </button>
+
+</div>
+  
+<script src="horses.js"></script>
+<script src="race.js"></script>
 <script src="script.js"></script>
+
 
 </body>
 </html>

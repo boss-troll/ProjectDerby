@@ -1,5 +1,7 @@
+let raceTimer = null;
 // ---------- レース画面 ----------
 const raceScreen = document.getElementById("raceScreen");
+const newsScreen = document.getElementById("newsScreen");
 const commentary = document.getElementById("commentary");
 const ranking = document.getElementById("ranking");
 const raceDistance = document.getElementById("raceDistance");
@@ -152,15 +154,6 @@ document.getElementById("detailBackBtn").onclick = function(){
 
 document.getElementById("raceStart").onclick = function(){
 
-    alert("Ver0.5でレース実況が始まります！");
-
-};
-// ================================
-// レース開始
-// ================================
-
-document.getElementById("raceStart").onclick = function(){
-
     horseListScreen.style.display = "none";
     raceScreen.style.display = "block";
 
@@ -171,10 +164,12 @@ document.getElementById("raceStart").onclick = function(){
         document.getElementById("weather").value + "　" +
         document.getElementById("ground").value;
 
-    commentary.innerHTML = "";
+    commentary.innerHTML = "ゲートイン開始...<br>";
     ranking.innerHTML = "";
 
-    raceCommentary();
+    createRace(raceHorses);
+
+    raceTimer = setInterval(runRace,1000);
 
 };
 function raceCommentary(){
@@ -229,5 +224,58 @@ function showResult(){
         "<br>";
 
     }
+
+}
+document.getElementById("newsBackBtn").onclick = function(){
+
+    newsScreen.style.display = "none";
+
+    titleScreen.style.display = "block";
+
+};
+function runRace(){
+
+    advanceRace();
+
+    ranking.innerHTML = "";
+
+    raceData.forEach((horse,index)=>{
+
+        ranking.innerHTML +=
+        `
+        ${index+1}位　
+        ${horse.name}
+        (${Math.floor(horse.position)}m)
+        <br>
+        `;
+
+    });
+
+    const remain = Math.max(
+    0,
+    2000 - Math.floor(raceData[0].position)
+);
+
+commentary.innerHTML +=
+    "残り " + remain + "m<br>";
+
+commentary.scrollTop =
+    commentary.scrollHeight;
+if(raceData[0].position >= 2000){
+
+    commentary.innerHTML += "<br>🏁 ゴーーーーール！！<br>";
+
+    ranking.innerHTML = "";
+
+    raceData.forEach((horse,index)=>{
+
+        ranking.innerHTML +=
+        `
+        ${index+1}着 ${horse.name}<br>
+        `;
+
+    });
+
+}
 
 }
