@@ -233,17 +233,16 @@ document.getElementById("newsBackBtn").onclick = function(){
     titleScreen.style.display = "block";
 
 };
-function runRace(){
+function runRace() {
 
     advanceRace();
 
     ranking.innerHTML = "";
 
-    raceData.forEach((horse,index)=>{
+    raceData.forEach((horse, index) => {
 
-        ranking.innerHTML +=
-        `
-        ${index+1}位　
+        ranking.innerHTML += `
+        <b>${index + 1}位</b>
         ${horse.name}
         (${Math.floor(horse.position)}m)
         <br>
@@ -252,30 +251,35 @@ function runRace(){
     });
 
     const remain = Math.max(
-    0,
-    2000 - Math.floor(raceData[0].position)
-);
+        0,
+        2000 - Math.floor(raceData[0].position)
+    );
 
-commentary.innerHTML +=
-    "残り " + remain + "m<br>";
+    commentary.innerHTML += `残り ${remain}m<br>`;
 
-commentary.scrollTop =
-    commentary.scrollHeight;
-if(raceData[0].position >= 2000){
+    commentary.scrollTop = commentary.scrollHeight;
 
-    commentary.innerHTML += "<br>🏁 ゴーーーーール！！<br>";
+    if (raceFinished) {
 
-    ranking.innerHTML = "";
+        clearInterval(raceTimer);
 
-    raceData.forEach((horse,index)=>{
+        commentary.innerHTML += `
+        <hr>
+        <h2>🏁 ゴーーーーール！！</h2>
 
-        ranking.innerHTML +=
-        `
-        ${index+1}着 ${horse.name}<br>
+        <h2>🥇 優勝</h2>
+
+        <h1>${raceData[0].name}</h1>
+
+        <p>
+        スピード ${raceData[0].speed}<br>
+        スタミナ ${raceData[0].stamina}<br>
+        瞬発力 ${raceData[0].sprint}
+        </p>
+
+        <hr>
         `;
 
-    });
-
-}
+    }
 
 }
