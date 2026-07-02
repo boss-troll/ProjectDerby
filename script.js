@@ -1,5 +1,6 @@
 let raceTimer = null;
 let raceGoal = 2000;
+let commentaryStep = 0;
 // ---------- レース画面 ----------
 const raceScreen = document.getElementById("raceScreen");
 const newsScreen = document.getElementById("newsScreen");
@@ -102,6 +103,8 @@ function showHorseDetail(index){
     horseSpeed.textContent = "スピード　" + horse.speed;
     horseStamina.textContent = "スタミナ　" + horse.stamina;
     horseSprint.textContent = "瞬発力　" + horse.sprint;
+    document.getElementById("horseStyle").textContent =
+    "脚質　" + horse.style;
 
 }
 
@@ -212,10 +215,12 @@ document.getElementById("newsBackBtn").onclick = function(){
     titleScreen.style.display = "block";
 
 };
+
 function runRace() {
 
     advanceRace();
 
+    // 順位表示
     ranking.innerHTML = "";
 
     raceData.forEach((horse, index) => {
@@ -229,62 +234,96 @@ function runRace() {
 
     });
 
+    // 残り距離
     const remain = Math.max(
-    0,
-    raceGoal - Math.floor(raceData[0].position)
-);
-    commentary.innerHTML += `残り ${remain}m<br>`;
+        0,
+        raceGoal - Math.floor(raceData[0].position)
+    );
+
+    // 実況
+    if(commentaryStep === 0){
+
+        commentary.innerHTML += "🏇 スタートしました！<br>";
+        commentaryStep++;
+
+    }
+    else if(commentaryStep === 1 && remain <= raceGoal * 0.8){
+
+        let message = "";
+
+        switch(raceData[0].style){
+
+            case "逃げ":
+                message = `🐎 ${raceData[0].name} がハナを奪いました！`;
+                break;
+
+            case "先行":
+                message = `🏇 ${raceData[0].name} が好位から先頭へ！`;
+                break;
+
+            case "差し":
+                message = `⚡ ${raceData[0].name} が差してきた！`;
+                break;
+
+            case "追込":
+                message = `🔥 ${raceData[0].name} が大外から一気に伸びる！`;
+                break;
+
+            default:
+                message = `🐎 ${raceData[0].name} が先頭！`;
+        }
+
+        commentary.innerHTML += message + "<br>";
+        commentaryStep++;
+
+    }
+    else if(commentaryStep === 2 && remain <= raceGoal * 0.5){
+
+        commentary.innerHTML += "🏇 レースは中盤へ！<br>";
+        commentaryStep++;
+
+    }
+    else if(commentaryStep === 3 && remain <= raceGoal * 0.2){
+
+        commentary.innerHTML += "🔥 最後の直線！！<br>";
+        commentaryStep++;
+
+    }
 
     commentary.scrollTop = commentary.scrollHeight;
 
-    if (raceFinished) {
+    // ゴール
+    if(raceFinished){
 
         clearInterval(raceTimer);
 
-       commentary.innerHTML += `
-<hr>
-<h2>🏁 ゴーーーーール！！</h2>
+        commentary.innerHTML += `
+        <hr>
+        <h2>🏁 ゴーーーーール！！</h2>
 
-<h2>🥇 優勝</h2>
+        <h2>🥇 優勝</h2>
 
-<h1>${raceData[0].name}</h1>
+        <h1>${raceData[0].name}</h1>
 
-<p>
-スピード ${raceData[0].speed}<br>
-スタミナ ${raceData[0].stamina}<br>
-瞬発力 ${raceData[0].sprint}
-</p>
+        <p>
+        スピード ${raceData[0].speed}<br>
+        スタミナ ${raceData[0].stamina}<br>
+        瞬発力 ${raceData[0].sprint}<br>
+        脚質 ${raceData[0].style}
+        </p>
 
-<hr>
-`;
-       setTimeout(function(){
+        <hr>
+        `;
 
-    raceScreen.style.display = "none";
+        setTimeout(function(){
 
-    newsScreen.style.display = "block";
+            showNews(
+                raceData[0],
+                raceData[1],
+                raceData[2]
+            );
 
-    document.getElementById("newsList").innerHTML = `
-<div class="newsCard">
-
-    <h2>🏆 レース速報</h2>
-
-    <p>
-        ${raceData[0].name}
-        が見事に勝利！
-    </p>
-
-    <p>
-        2着 ${raceData[1].name}
-    </p>
-
-    <p>
-        3着 ${raceData[2].name}
-    </p>
-
-</div>
-`;
-
-},3000);
+        },3000);
 
     }
 

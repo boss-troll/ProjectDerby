@@ -18,7 +18,10 @@ function createRace(horses){
 
         position:0,
 
-        staminaLeft:horse.stamina
+        currentSpeed: 0,
+
+        staminaLeft: horse.stamina,
+condition: "普通"
 
     }));
 
@@ -34,6 +37,34 @@ function advanceRace(){
     raceData.forEach(horse=>{
 
         let move = horse.speed;
+
+        // 脚質補正
+switch(horse.style){
+
+    case "逃げ":
+        if(horse.position < raceGoal * 0.3){
+            move += 5;
+        }
+        break;
+
+    case "先行":
+        if(horse.position < raceGoal * 0.6){
+            move += 3;
+        }
+        break;
+
+    case "差し":
+        if(horse.position > raceGoal * 0.5){
+            move += 4;
+        }
+        break;
+
+    case "追込":
+        if(horse.position > raceGoal * 0.8){
+            move += 8;
+        }
+        break;
+}
 
         move += Math.floor(Math.random()*5)-2;
 
