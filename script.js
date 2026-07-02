@@ -1,4 +1,5 @@
 let raceTimer = null;
+let raceGoal = 2000;
 // ---------- レース画面 ----------
 const raceScreen = document.getElementById("raceScreen");
 const newsScreen = document.getElementById("newsScreen");
@@ -33,31 +34,7 @@ let raceHorses = [];
 // タイトル画面
 // ================================
 
-document.getElementById("raceBtn").onclick = function(){
 
-    titleScreen.style.display = "none";
-    raceSetup.style.display = "block";
-
-};
-
-document.getElementById("backBtn").onclick = function(){
-
-    raceSetup.style.display = "none";
-    titleScreen.style.display = "block";
-
-};
-
-document.getElementById("newGameBtn").onclick = function(){
-
-    alert("開発中です！");
-
-};
-
-document.getElementById("optionBtn").onclick = function(){
-
-    alert("開発中です！");
-
-};
 
 
 // ================================
@@ -159,7 +136,9 @@ document.getElementById("raceStart").onclick = function(){
 
     raceDistance.textContent =
         document.getElementById("distance").value;
-
+raceGoal = Number(
+    document.getElementById("distance").value.replace("m","")
+);
     raceInfo.textContent =
         document.getElementById("weather").value + "　" +
         document.getElementById("ground").value;
@@ -251,10 +230,9 @@ function runRace() {
     });
 
     const remain = Math.max(
-        0,
-        2000 - Math.floor(raceData[0].position)
-    );
-
+    0,
+    raceGoal - Math.floor(raceData[0].position)
+);
     commentary.innerHTML += `残り ${remain}m<br>`;
 
     commentary.scrollTop = commentary.scrollHeight;
@@ -263,22 +241,50 @@ function runRace() {
 
         clearInterval(raceTimer);
 
-        commentary.innerHTML += `
-        <hr>
-        <h2>🏁 ゴーーーーール！！</h2>
+       commentary.innerHTML += `
+<hr>
+<h2>🏁 ゴーーーーール！！</h2>
 
-        <h2>🥇 優勝</h2>
+<h2>🥇 優勝</h2>
 
-        <h1>${raceData[0].name}</h1>
+<h1>${raceData[0].name}</h1>
 
-        <p>
-        スピード ${raceData[0].speed}<br>
-        スタミナ ${raceData[0].stamina}<br>
-        瞬発力 ${raceData[0].sprint}
-        </p>
+<p>
+スピード ${raceData[0].speed}<br>
+スタミナ ${raceData[0].stamina}<br>
+瞬発力 ${raceData[0].sprint}
+</p>
 
-        <hr>
-        `;
+<hr>
+`;
+       setTimeout(function(){
+
+    raceScreen.style.display = "none";
+
+    newsScreen.style.display = "block";
+
+    document.getElementById("newsList").innerHTML = `
+<div class="newsCard">
+
+    <h2>🏆 レース速報</h2>
+
+    <p>
+        ${raceData[0].name}
+        が見事に勝利！
+    </p>
+
+    <p>
+        2着 ${raceData[1].name}
+    </p>
+
+    <p>
+        3着 ${raceData[2].name}
+    </p>
+
+</div>
+`;
+
+},3000);
 
     }
 

@@ -47,8 +47,7 @@ function advanceRace(){
 
     raceData.sort((a,b)=>b.position-a.position);
 
-    if(raceData[0].position>=2000){
-
+   if(raceData[0].position>=2000){
         raceFinished = true;
 
     }
