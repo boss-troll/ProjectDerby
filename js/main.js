@@ -118,3 +118,47 @@ document.getElementById("horseBackBtn").onclick = function(){
     raceSetup.style.display = "block";
 
 };
+// ---------- レース開始 ----------
+document.getElementById("raceStart").onclick = function(){
+
+    horseListScreen.style.display = "none";
+    raceScreen.style.display = "block";
+
+    // 距離
+    raceDistance.textContent =
+        document.getElementById("distance").value;
+
+   // 競馬場をランダム選択
+const course =
+    raceCourses[
+        Math.floor(Math.random() * raceCourses.length)
+    ];
+
+// グローバルに保存
+currentCourse = course;
+
+currentWeather =
+    document.getElementById("weather").value;
+
+    // レース情報
+    raceInfo.innerHTML =
+        "🏟 " + course.name + "<br>" +
+        "↩ " + course.direction + "回り<br>" +
+        "🌱 " + course.turf + "<br>" +
+        "☀ " + document.getElementById("weather").value + "<br>" +
+        "馬場 " + document.getElementById("ground").value;
+
+    // ゴール距離
+    raceGoal = Number(
+        document.getElementById("distance").value.replace("m","")
+    );
+
+    commentary.innerHTML = "";
+    ranking.innerHTML = "";
+    commentaryStep = 0;
+
+    createRace(raceHorses);
+
+    raceTimer = setInterval(runRace,1000);
+
+};

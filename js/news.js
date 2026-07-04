@@ -33,3 +33,12 @@ function showNews(first, second, third){
     `;
 
 }
+// ----------------------
+// タイトルへ戻る
+// ----------------------
+document.getElementById("newsBackBtn").onclick = function(){
+
+    newsScreen.style.display = "none";
+    titleScreen.style.display = "block";
+
+};
