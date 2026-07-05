@@ -153,11 +153,21 @@
 
     <h1 id="horseName"></h1>
 
+    <h2 id="horseOverall"></h2>
+
     <p id="horseSpeed"></p>
 
     <p id="horseStamina"></p>
 
     <p id="horseSprint"></p>
+
+    <p id="horseStart"></p>
+
+    <p id="horseGuts"></p>
+
+    <p id="horseTemper"></p>
+
+    <p id="horseLuck"></p>
 
     <p id="horseStyle"></p>
 
@@ -189,6 +199,28 @@
 
     <h3>実況</h3>
 
+    <div id="raceInfoPanel">
+
+        <div id="predictionPanel">
+
+    <h3>🎯 AI予想</h3>
+
+    <p id="predictionText"></p>
+
+</div>
+
+    <h3>🏇 レース情報</h3>
+
+    <p id="courseName"></p>
+
+    <p id="distanceInfo"></p>
+
+    <p id="weatherInfo"></p>
+
+    <p id="groundInfo"></p>
+
+</div>
+
     <div id="commentary"></div>
 
     <hr>
@@ -196,6 +228,52 @@
     <h3>順位</h3>
 
     <div id="ranking"></div>
+
+    <div id="winnerPanel" style="display:none;">
+
+    <h1>🏆 WINNER!!</h1>
+
+    <h2 id="winnerPanelName"></h2>
+
+    <p>素晴らしいレースでした！</p>
+
+</div>
+
+    <div id="resultButtonArea" style="display:none;">
+
+    <button id="resultBtn">
+        🏆 リザルトを見る
+    </button>
+
+    </div>
+
+    </div>
+
+<!-- ========================= -->
+<!-- リザルト画面 -->
+<!-- ========================= -->
+
+<div id="resultScreen" style="display:none;">
+
+    <h1>🏆 RESULT</h1>
+
+    <div id="resultCard">
+
+        <h2 id="winnerName"></h2>
+
+        <p id="winnerInfo"></p>
+
+        <hr>
+
+        <div id="resultRanking"></div>
+
+    </div>
+
+    <br>
+
+    <button id="nextNewsBtn">
+        📰 ニュースを見る
+    </button>
 
 </div>
 
@@ -233,7 +311,9 @@
 <script src="js/horses.js"></script>
 <script src="js/race.js"></script>
 <script src="js/commentary.js"></script>
+<script src="js/result.js"></script>
 <script src="js/news.js"></script>
+<script src="js/ui.js"></script>
 <script src="js/main.js"></script>
 <script src="script.js"></script>
 

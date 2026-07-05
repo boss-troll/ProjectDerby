@@ -7,9 +7,7 @@
 // ---------- タイトル → レース設定 ----------
 document.getElementById("raceBtn").onclick = function(){
 
-    titleScreen.style.display = "none";
-    raceSetup.style.display = "block";
-
+         showScreen(raceSetup);
 };
 
 // ---------- レース設定 → タイトル ----------
@@ -52,6 +50,28 @@ document.getElementById("startRaceBtn").onclick = function(){
 
     raceHorses = raceHorses.slice(0, horseCount);
 
+raceHorses.forEach(horse=>{
+
+    horse.power =
+        horse.speed +
+        horse.stamina +
+        horse.sprint +
+        horse.start +
+        horse.guts;
+
+});
+
+raceHorses.sort((a,b)=>b.power-a.power);
+
+raceHorses.forEach((horse,index)=>{
+
+    horse.popularity = index + 1;
+
+    horse.odds =
+    (1.8 + index * 1.7).toFixed(1);
+
+});
+
     raceHorses.forEach((horse,index)=>{
 
         horseList.innerHTML += `
@@ -63,6 +83,9 @@ document.getElementById("startRaceBtn").onclick = function(){
             <p>スタミナ ${horse.stamina}</p>
             <p>瞬発力 ${horse.sprint}</p>
             <p>脚質 ${horse.style}</p>
+            <p>人気 ${horse.popularity}番人気</p>
+
+<p>オッズ ${horse.odds}倍</p>
 
             <button
                 class="detailBtn"
@@ -80,6 +103,39 @@ document.getElementById("startRaceBtn").onclick = function(){
 };
 
 // ---------- 馬詳細 ----------
+function rank(value){
+
+    if(value >= 95) return "SS";
+    if(value >= 90) return "S";
+    if(value >= 85) return "A";
+    if(value >= 80) return "B";
+    if(value >= 75) return "C";
+
+    return "D";
+
+}
+
+function overallRank(horse){
+
+    const total =
+        horse.speed +
+        horse.stamina +
+        horse.sprint +
+        horse.start +
+        horse.guts;
+
+    const avg = total / 5;
+
+    if(avg >= 93) return "★★★★★　SS";
+    if(avg >= 90) return "★★★★☆　S";
+    if(avg >= 86) return "★★★★☆　A";
+    if(avg >= 82) return "★★★☆☆　B";
+    if(avg >= 78) return "★★☆☆☆　C";
+
+    return "★☆☆☆☆　D";
+
+}
+
 function showHorseDetail(index){
 
     const horse = raceHorses[index];
@@ -89,17 +145,31 @@ function showHorseDetail(index){
 
     horseName.textContent = horse.name;
 
+    horseOverall.textContent =
+"総合評価　" + overallRank(horse);
+
+horseStart.textContent =
+`スタート　${rank(horse.start)} (${horse.start})`;
+
+horseGuts.textContent =
+`根性　　　${rank(horse.guts)} (${horse.guts})`;
+
+horseTemper.textContent =
+`気性　　　${rank(horse.temper)} (${horse.temper})`;
+
+horseLuck.textContent =
+`運　　　　${rank(horse.luck)} (${horse.luck})`;
     horseSpeed.textContent =
-        "スピード　" + horse.speed;
 
-    horseStamina.textContent =
-        "スタミナ　" + horse.stamina;
+`スピード　${rank(horse.speed)} (${horse.speed})`;
 
-    horseSprint.textContent =
-        "瞬発力　" + horse.sprint;
+horseStamina.textContent =
+`スタミナ　${rank(horse.stamina)} (${horse.stamina})`;
 
-    document.getElementById("horseStyle").textContent =
-        "脚質　" + horse.style;
+horseSprint.textContent =`瞬発力　${rank(horse.sprint)} (${horse.sprint})`;
+
+document.getElementById("horseStyle").textContent =
+"脚質　" + horse.style;
 
 }
 
@@ -135,10 +205,15 @@ const course =
     ];
 
 // グローバルに保存
-currentCourse = course;
+setRaceInfo(
 
-currentWeather =
-    document.getElementById("weather").value;
+    course,
+
+    document.getElementById("weather").value,
+
+    document.getElementById("ground").value
+
+);
 
     // レース情報
     raceInfo.innerHTML =
@@ -153,12 +228,52 @@ currentWeather =
         document.getElementById("distance").value.replace("m","")
     );
 
-    commentary.innerHTML = "";
-    ranking.innerHTML = "";
-    commentaryStep = 0;
+ranking.innerHTML = "";
 
-    createRace(raceHorses);
+createRace(raceHorses);
 
-    raceTimer = setInterval(runRace,1000);
+resetCommentary();
+
+resultButtonArea.style.display = "none";
+
+raceTimer = setInterval(runRace,1000);
+
+};
+document.getElementById("resultBtn").onclick = function(){
+
+    resultButtonArea.style.display = "none";
+
+    showNews(
+
+        raceData[0],
+
+        raceData[1],
+
+        raceData[2]
+
+    );
+
+};
+document.getElementById("nextNewsBtn").onclick=function(){
+
+    resultScreen.style.display="none";
+
+    showNews(
+
+        raceData[0],
+
+        raceData[1],
+
+        raceData[2]
+
+    );
+
+};
+// ---------- リザルトを見る ----------
+document.getElementById("resultBtn").onclick = function(){
+
+    document.getElementById("resultButtonArea").style.display = "none";
+
+    showResult();
 
 };

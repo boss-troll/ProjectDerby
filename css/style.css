@@ -329,3 +329,186 @@ h2{
     line-height:1.8;
 
 }
+#raceInfoPanel{
+
+    background:#ffffff;
+
+    color:#222;
+
+    border:3px solid #333;
+
+    border-radius:10px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    text-align:center;
+
+}
+
+#raceInfoPanel h3{
+
+    color:#0b5d0b;
+
+    margin-bottom:10px;
+
+}
+
+
+#raceInfoPanel p{
+
+    color:#222;
+
+    margin:8px 0;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+#resultButtonArea{
+
+    margin-top:20px;
+
+}
+
+#resultBtn{
+
+    width:250px;
+
+    background:gold;
+
+    color:black;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+#resultBtn:hover{
+
+    background:orange;
+
+}
+/* ========================= */
+/* Result */
+/* ========================= */
+
+#resultScreen{
+
+    width:700px;
+
+    background:rgba(0,0,0,.45);
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 0 20px rgba(0,0,0,.4);
+
+    text-align:center;
+
+}
+
+#resultCard{
+
+    background:white;
+
+    color:black;
+
+    border-radius:15px;
+
+    padding:20px;
+
+}
+
+#resultRanking{
+
+    text-align:left;
+
+    margin-top:20px;
+
+    font-size:20px;
+
+}
+.resultHorse{
+
+    background:white;
+
+    color:black;
+
+    padding:12px;
+
+    margin:10px 0;
+
+    border-radius:10px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+
+}
+.resultHorse h3{
+
+    color:#006400;
+
+    margin-bottom:5px;
+
+}
+
+.resultHorse p{
+
+    color:#666;
+
+    font-size:18px;
+
+}
+/* 勝者演出 */
+
+#winnerPanel{
+
+    display:none;
+
+    margin-top:20px;
+
+    background:linear-gradient(gold,#ffd700);
+
+    color:black;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    animation:winnerPop .8s;
+
+}
+
+#winnerPanel h1{
+
+    color:#b30000;
+
+}
+
+@keyframes winnerPop{
+
+    from{
+
+        transform:scale(.7);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}

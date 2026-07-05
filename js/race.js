@@ -7,10 +7,10 @@
 // ----------------------
 // グローバル
 // ----------------------
+
 window.raceData = [];
 window.raceFinished = false;
 
-let lastLeader = "";
 
 // ----------------------
 // 競馬場
@@ -70,6 +70,12 @@ function setRaceInfo(course, weather, ground){
 // ----------------------
 // 調子抽選
 // ----------------------
+// ----------------------
+// 調子補正
+// ----------------------
+// ----------------------
+// 調子抽選
+// ----------------------
 function getCondition(){
 
     const conditions = [
@@ -87,6 +93,29 @@ function getCondition(){
     return conditions[
         Math.floor(Math.random() * conditions.length)
     ];
+
+}
+function getConditionRate(condition){
+
+    switch(condition){
+
+        case "絶好調":
+            return 1.05;
+
+        case "好調":
+            return 1.02;
+
+        case "普通":
+            return 1.00;
+
+        case "不調":
+            return 0.98;
+
+        case "絶不調":
+            return 0.95;
+    }
+
+    return 1;
 
 }
 
@@ -111,9 +140,66 @@ function createRace(horses){
 
     }));
 
-    lastLeader = raceData[0].name;
+resetCommentary();
 
+   document.getElementById("courseName").innerHTML =
+`
+🏇 第1レース
+`;
+
+document.getElementById("distanceInfo").innerHTML =
+`
+🏟 ${currentCourse.name}<br>
+🌱 ${currentCourse.turf} ${raceGoal}m ${currentCourse.direction}回り
+`;
+
+document.getElementById("weatherInfo").innerHTML =
+`
+☀ 天候：${currentWeather}
+`;
+
+document.getElementById("groundInfo").innerHTML =
+`
+🐎 出走頭数：${raceData.length}頭<br>
+馬場：${currentGround}
+`;
+// ----------------------
+// AI予想
+// ----------------------
+
+const predict = [...raceData];
+
+predict.sort((a,b)=>{
+
+    const pa =
+    a.speed +
+    a.stamina +
+    a.sprint +
+    a.start +
+    a.guts;
+
+    const pb =
+    b.speed +
+    b.stamina +
+    b.sprint +
+    b.start +
+    b.guts;
+
+    return pb - pa;
+
+});
+
+predictionText.innerHTML =
+
+`
+◎ ${predict[0].name}<br>
+
+○ ${predict[1].name}<br>
+
+▲ ${predict[2].name}
+`;
 }
+
 // ----------------------
 // レース進行
 // ----------------------
@@ -121,38 +207,38 @@ function advanceRace(){
 
     raceData.forEach(horse => {
 
-        let move = horse.speed;
+    
+   let move = horse.speed;
 
-        // ランダム補正
-        move += Math.floor(Math.random() * 5) - 2;
+// 調子補正
+move *= getConditionRate(horse.condition);
 
-        // スタミナ補正
-        move += (horse.staminaLeft - 80) / 10;
+// ランダム補正
+move += Math.floor(Math.random() * 5) - 2;
 
-        // 瞬発力補正
-        move += horse.sprint * 0.05;
+// スタート能力
+if(horse.position < 80){
+    move += horse.start * 0.05;
+}
 
-        // 調子補正
-        switch(horse.condition){
+// スタミナ補正
+move += (horse.staminaLeft - 80) / 10;
 
-            case "絶好調":
-                move += 5;
-                break;
+// 瞬発力
+move += horse.sprint * 0.05;
 
-            case "好調":
-                move += 2;
-                break;
+// ゴール前の根性
+if(horse.position > raceGoal - 400){
+    move += horse.guts * 0.04;
+}
 
-            case "不調":
-                move -= 2;
-                break;
+// 気性
+move += (horse.temper - 80) * 0.05;
 
-            case "絶不調":
-                move -= 5;
-                break;
+// 運
+move += (Math.random() * horse.luck) / 25;
 
-        }
-
+      
         // 芝・ダート適性
         if(currentCourse){
 
@@ -169,39 +255,92 @@ function advanceRace(){
             move += (horse.rain - 80) * 0.15;
         }
 
-        // 脚質
-        switch(horse.style){
+        // ----------------------
+// 脚質AI
+// ----------------------
+const progress = horse.position / raceGoal;
 
-            case "逃げ":
-                if(horse.position < raceGoal * 0.3){
-                    move += 5;
-                }
-                break;
+switch(horse.style){
 
-            case "先行":
-                if(horse.position < raceGoal * 0.6){
-                    move += 3;
-                }
-                break;
+    case "逃げ":
 
-            case "差し":
-                if(horse.position > raceGoal * 0.5){
-                    move += 4;
-                }
-                break;
+        if(progress < 0.20){
 
-            case "追込":
-                if(horse.position > raceGoal * 0.8){
-                    move += 8;
-                }
-                break;
+            move += 7;
+
+        }else if(progress < 0.60){
+
+            move += 3;
+
+        }else{
+
+            move -= 3;
 
         }
+
+        break;
+
+    case "先行":
+
+        if(progress < 0.30){
+
+            move += 3;
+
+        }else if(progress < 0.80){
+
+            move += 2;
+
+        }else{
+
+            move += 1;
+
+        }
+
+        break;
+
+    case "差し":
+
+        if(progress < 0.50){
+
+            move -= 2;
+
+        }else if(progress < 0.80){
+
+            move += 5;
+
+        }else{
+
+            move += 7;
+
+        }
+
+        break;
+
+    case "追込":
+
+        if(progress < 0.70){
+
+            move -= 4;
+
+        }else if(progress < 0.90){
+
+            move += 6;
+
+        }else{
+
+            move += 12;
+
+        }
+
+        break;
+
+}
 
         horse.position += move;
 
         // スタミナ消費
         horse.staminaLeft -= 0.3;
+        horse.fatigue += 0.15;
 
     });
 
@@ -249,47 +388,80 @@ function runRace(){
     // ゴール
     if(raceFinished){
 
-        clearInterval(raceTimer);
+    clearInterval(raceTimer);
 
-        commentary.innerHTML += `
-        <hr>
+    // レースタイム（仮）
+    const raceTime = (
+        raceGoal / 16.5 +
+        Math.random() * 3
+    ).toFixed(1);
 
-        <h2>🏁 ゴーーーーール！！</h2>
+    window.resultTime = raceTime;
+    
+    // レコード更新判定
+window.newRecord = false;
 
-        <h2>🥇 優勝</h2>
+if(resultTime < raceRecords[raceGoal]){
 
-        <h1>${raceData[0].name}</h1>
+    raceRecords[raceGoal] = Number(resultTime);
 
-        <p>
+    window.newRecord = true;
 
-        調子　${raceData[0].condition}<br>
+}
+    // レース結果保存
+window.lastRaceResult = {
 
-        スピード　${raceData[0].speed}<br>
+    winner : raceData[0].name,
 
-        スタミナ　${raceData[0].stamina}<br>
+    second : raceData[1].name,
 
-        瞬発力　${raceData[0].sprint}<br>
+    third : raceData[2].name,
 
-        脚質　${raceData[0].style}
+    time : resultTime,
 
-        </p>
+    course : currentCourse.name,
 
-        <hr>
-        `;
+    distance : raceGoal,
 
-        setTimeout(function(){
+    weather : currentWeather,
 
-            showNews(
+    ground : currentGround
 
-                raceData[0],
+};
 
-                raceData[1],
+    commentary.innerHTML += `
 
-                raceData[2]
+    <hr>
 
-            );
+    <h2>🏁 ゴーーーーール！！</h2>
 
-        },3000);
+    <h2>🥇 優勝</h2>
+
+    <h1>${raceData[0].name}</h1>
+
+    <p>
+
+    調子　${raceData[0].condition}<br>
+
+    スピード　${raceData[0].speed}<br>
+
+    スタミナ　${raceData[0].stamina}<br>
+
+    瞬発力　${raceData[0].sprint}<br>
+
+    脚質　${raceData[0].style}
+
+    </p>
+
+    <hr>
+
+`;
+
+setTimeout(function(){
+
+    document.getElementById("resultButtonArea").style.display = "block";
+
+},2000);
 
     }
 
