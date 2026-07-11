@@ -19,11 +19,11 @@ const screens = [
 
     newGameScreen,
     homeScreen,
-    eventScreen,
+    
     workScreen,
     openingScreen,
     dialogueScreen
-    
+
 
 ];
 
