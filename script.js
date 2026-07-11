@@ -24,10 +24,17 @@ document.getElementById("predictionText");
 // ================================
 
 // ---------- 画面 ----------
+// ---------- 画面 ----------
 const titleScreen = document.getElementById("titleScreen");
 const raceSetup = document.getElementById("raceSetup");
 const horseListScreen = document.getElementById("horseListScreen");
 const horseDetailScreen = document.getElementById("horseDetailScreen");
+
+const newGameScreen = document.getElementById("newGameScreen");
+const homeScreen = document.getElementById("homeScreen");
+const workScreen = document.getElementById("workScreen");
+const openingScreen = document.getElementById("openingScreen");
+const dialogueScreen = document.getElementById("dialogueScreen");
 
 // ---------- 一覧 ----------
 const horseList = document.getElementById("horseList");

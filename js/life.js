@@ -299,33 +299,34 @@ document.getElementById("openingNextBtn").onclick = function(){
 
 
 
-// ---------- 休日 ----------
-holidayBtn.onclick = function(){
 
-    alert("休日システム開発中");
 
-};
-// ==========================
-// 外出
-// ==========================
 
-// HOME → 外出
-document.getElementById("raceCourseBtn").onclick = function(){
 
-    showScreen(outingScreen);
 
-};
 
-// 外出 → HOME
-document.getElementById("goBackHomeBtn").onclick = function(){
 
-    showScreen(homeScreen);
+// // ==========================
+// // 外出
+// // ==========================
 
-};
+// // HOME → 外出
+// document.getElementById("raceCourseBtn").onclick = function(){
 
-// 外出 → 競馬場
-document.getElementById("goRaceCourseBtn").onclick = function(){
+//     showScreen(outingScreen);
 
-    alert("競馬場は次のSTEPで作成します。");
+// };
 
-};
+// // 外出 → HOME
+// document.getElementById("goBackHomeBtn").onclick = function(){
+
+//     showScreen(homeScreen);
+
+// };
+
+// // 外出 → 競馬場
+// document.getElementById("goRaceCourseBtn").onclick = function(){
+
+//     alert("競馬場は次のSTEPで作成します。");
+
+// };
