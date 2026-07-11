@@ -35,6 +35,7 @@ const homeScreen = document.getElementById("homeScreen");
 const workScreen = document.getElementById("workScreen");
 const openingScreen = document.getElementById("openingScreen");
 const dialogueScreen = document.getElementById("dialogueScreen");
+const outingScreen = document.getElementById("outingScreen");
 
 // ---------- 一覧 ----------
 const horseList = document.getElementById("horseList");

@@ -297,36 +297,34 @@ document.getElementById("openingNextBtn").onclick = function(){
 // Event
 // ==========================
 
+// ==========================
+// 外出
+// ==========================
 
+// HOME → 外出
+document.getElementById("outingBtn").onclick = function(){
 
+    showScreen(outingScreen);
 
+};
 
+// 外出 → HOME
+document.getElementById("goHomeBtn").onclick = function(){
 
+    showScreen(homeScreen);
 
+};
 
+// 競馬場
+document.getElementById("goRaceCourseBtn").onclick = function(){
 
+    alert("競馬場は次のSTEPで作ります。");
 
-// // ==========================
-// // 外出
-// // ==========================
+};
 
-// // HOME → 外出
-// document.getElementById("raceCourseBtn").onclick = function(){
+// ショップ
+document.getElementById("goShopBtn").onclick = function(){
 
-//     showScreen(outingScreen);
+    alert("ショップは準備中です。");
 
-// };
-
-// // 外出 → HOME
-// document.getElementById("goBackHomeBtn").onclick = function(){
-
-//     showScreen(homeScreen);
-
-// };
-
-// // 外出 → 競馬場
-// document.getElementById("goRaceCourseBtn").onclick = function(){
-
-//     alert("競馬場は次のSTEPで作成します。");
-
-// };
+};
