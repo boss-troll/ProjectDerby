@@ -18,10 +18,21 @@ document.getElementById("backBtn").onclick = function(){
 
 };
 
-// ---------- 新しいゲーム ----------
+// ---------- NEW GAME ----------
 document.getElementById("newGameBtn").onclick = function(){
 
-    alert("開発中です！");
+    titleScreen.style.display = "none";
+
+    newGameScreen.style.display = "block";
+
+};
+
+// ---------- 主人公作成 → タイトル ----------
+document.getElementById("newGameBackBtn").onclick = function(){
+
+    newGameScreen.style.display = "none";
+
+    titleScreen.style.display = "block";
 
 };
 
@@ -191,14 +202,9 @@ document.getElementById("horseBackBtn").onclick = function(){
 // ---------- レース開始 ----------
 document.getElementById("raceStart").onclick = function(){
 
-    horseListScreen.style.display = "none";
-    raceScreen.style.display = "block";
+horseListScreen.style.display = "none";
 
-    // 距離
-    raceDistance.textContent =
-        document.getElementById("distance").value;
-
-   // 競馬場をランダム選択
+// 競馬場をランダム選択
 const course =
     raceCourses[
         Math.floor(Math.random() * raceCourses.length)
@@ -215,45 +221,20 @@ setRaceInfo(
 
 );
 
-    // レース情報
-    raceInfo.innerHTML =
-        "🏟 " + course.name + "<br>" +
-        "↩ " + course.direction + "回り<br>" +
-        "🌱 " + course.turf + "<br>" +
-        "☀ " + document.getElementById("weather").value + "<br>" +
-        "馬場 " + document.getElementById("ground").value;
 
-    // ゴール距離
-    raceGoal = Number(
-        document.getElementById("distance").value.replace("m","")
-    );
 
-ranking.innerHTML = "";
+// ゴール距離
+raceGoal = Number(
+    document.getElementById("distance").value.replace("m","")
+);
 
-createRace(raceHorses);
+// 出馬表を表示
+showEntry();
 
-resetCommentary();
-
-resultButtonArea.style.display = "none";
-
-raceTimer = setInterval(runRace,1000);
 
 };
-document.getElementById("resultBtn").onclick = function(){
 
-    resultButtonArea.style.display = "none";
 
-    showNews(
-
-        raceData[0],
-
-        raceData[1],
-
-        raceData[2]
-
-    );
-
-};
 document.getElementById("nextNewsBtn").onclick=function(){
 
     resultScreen.style.display="none";

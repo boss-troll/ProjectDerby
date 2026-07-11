@@ -12,6 +12,7 @@ function showScreen(screen){
     raceSetup.style.display = "none";
     horseListScreen.style.display = "none";
     horseDetailScreen.style.display = "none";
+    entryScreen.style.display = "none";   // ←追加
     raceScreen.style.display = "none";
     resultScreen.style.display = "none";
     newsScreen.style.display = "none";

@@ -2,6 +2,11 @@ let raceTimer = null;
 let raceGoal = 2000;
 // ---------- レース画面 ----------
 const raceScreen = document.getElementById("raceScreen");
+// ---------- 出馬表 ----------
+const entryScreen = document.getElementById("entryScreen");
+const entryInfo = document.getElementById("entryInfo");
+const entryList = document.getElementById("entryList");
+const entryRaceBtn = document.getElementById("entryRaceBtn");
 // ---------- リザルト画面 ----------
 const resultScreen = document.getElementById("resultScreen");
 const winnerName = document.getElementById("winnerName");
