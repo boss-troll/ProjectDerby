@@ -150,25 +150,22 @@ workMessage.innerHTML =
 
 };
 
-// ---------- 仕事終了 ----------
-document.getElementById("workNextBtn").onclick = function(){
+// ==========================
+// 1週間進める
+// ==========================
+function nextWeek(){
 
-    // 仕事画面を閉じる
-    workScreen.style.display = "none";
-
-    // 1週間進める
     player.week++;
 
     if(player.week > 4){
 
-    player.week = 1;
+        player.week = 1;
+        player.month++;
 
-    player.month++;
+        // 給料日（月末）
+        player.money += 300000;
 
-    // 給料日
-    player.money += 300000;
-
-}
+    }
 
     if(player.month > 12){
 
@@ -180,15 +177,63 @@ document.getElementById("workNextBtn").onclick = function(){
 
     // HOME更新
     homeDate.textContent =
-    "日付：" +
-    player.year + "年 " +
-    player.month + "月 第" +
-    player.week + "週";
+        "日付：" +
+        player.year + "年 " +
+        player.month + "月 第" +
+        player.week + "週";
+
+    homeMoney.textContent =
+        "所持金：" +
+        player.money.toLocaleString() +
+        "円";
+
+}
+
+// ==========================
+// 週間イベント（仮）
+// ==========================
+function weeklyEvent(){
+
+    const events = [
+
+        "特に何もない一週間だった。",
+        "競馬の広告を見かけた。",
+        "コンビニで競馬新聞が目に入った。",
+        "会社で競馬の話を耳にした。",
+        "テレビでGⅠのCMが流れていた。"
+
+    ];
+
+    const event =
+        events[
+            Math.floor(Math.random() * events.length)
+        ];
+
+    alert(event);
+
+}
+
+// ==========================
+// 仕事終了
+// ==========================
+document.getElementById("workNextBtn").onclick = function(){
+
+    // 仕事画面を閉じる
+    workScreen.style.display = "none";
+
+    // 1週間進める
+    nextWeek();
+
+    // イベント発生
+    weeklyEvent();
 
     // HOMEへ戻る
     homeScreen.style.display = "block";
 
 };
+// ==========================
+// Opening
+// ==========================
 document.getElementById("openingNextBtn").onclick = function(){
 
     openingIndex++;
@@ -207,6 +252,8 @@ document.getElementById("openingNextBtn").onclick = function(){
         openingStory[openingIndex].replace(/\n/g,"<br>");
 
 };
+
+
 // ==========================
 // 会話システム
 // ==========================
@@ -234,6 +281,7 @@ const dialogueData = [
 ];
 
 let dialogueIndex = 0;
+
 function startDialogue(){
 
     dialogueIndex = 0;
@@ -241,6 +289,7 @@ function startDialogue(){
     showDialogue();
 
 }
+
 function showDialogue(){
 
     dialoguePlace.textContent =
@@ -253,13 +302,16 @@ function showDialogue(){
         dialogueData[dialogueIndex].text;
 
 }
+
 dialogueNextBtn.onclick = function(){
 
     dialogueIndex++;
 
     if(dialogueIndex >= dialogueData.length){
 
-        alert("会話終了");
+        dialogueScreen.style.display = "none";
+
+        homeScreen.style.display = "block";
 
         return;
 

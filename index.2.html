@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PROJECT DERBY</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ========================= -->
+<!-- タイトル画面 -->
+<!-- ========================= -->
+
+<div id="titleScreen">
+
+    <h1>PROJECT DERBY</h1>
+
+    <h2>競馬シミュレーター</h2>
+
+    <div class="menu">
+
+
+<button id="newGameBtn">
+    🏇 NEW GAME
+</button>
+
+<button id="continueBtn">
+    📂 CONTINUE
+</button>
+
+<button id="raceBtn">
+    🏁 FREE RACE
+</button>
+
+<button id="optionBtn">
+    ⚙ OPTION
+</button>
+
+    </div>
+
+    <p class="version">
+
+🏆 Version 1.0.0 RELEASE 🏆
+
+</p>
+
+</div>
+
+<!-- ========================= -->
+<!-- レース設定 -->
+<!-- ========================= -->
+
+<div id="raceSetup" style="display:none;">
+
+    <h1>レース設定</h1>
+
+    <p>距離</p>
+
+    <select id="distance">
+
+        <option>1200m</option>
+        <option>1400m</option>
+        <option>1600m</option>
+        <option>1800m</option>
+        <option selected>2000m</option>
+        <option>2400m</option>
+        <option>3200m</option>
+
+    </select>
+
+    <p>天候</p>
+
+    <select id="weather">
+
+        <option>晴</option>
+        <option>曇</option>
+        <option>雨</option>
+
+    </select>
+
+    <p>馬場</p>
+
+    <select id="ground">
+
+        <option>良</option>
+        <option>稍重</option>
+        <option>重</option>
+        <option>不良</option>
+
+    </select>
+
+    <p>出走頭数</p>
+
+    <select id="horseCount">
+
+        <option>8</option>
+        <option>10</option>
+        <option selected>12</option>
+        <option>14</option>
+        <option>16</option>
+        <option>18</option>
+
+    </select>
+
+    <br><br>
+
+    <button id="startRaceBtn">
+
+        出走馬を見る
+
+    </button>
+
+    <button id="backBtn">
+
+        戻る
+
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- 出走馬一覧 -->
+<!-- ========================= -->
+
+<div id="horseListScreen" style="display:none;">
+
+    <h1>出走馬一覧</h1>
+
+    <div id="horseList"></div>
+
+    <br>
+
+    <button id="raceStart">
+
+        レース開始
+
+    </button>
+
+    <button id="horseBackBtn">
+
+        戻る
+
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- 馬詳細 -->
+<!-- ========================= -->
+
+<div id="horseDetailScreen" style="display:none;">
+
+    <h1 id="horseName"></h1>
+
+    <h2 id="horseOverall"></h2>
+
+    <p id="horseSpeed"></p>
+
+    <p id="horseStamina"></p>
+
+    <p id="horseSprint"></p>
+
+    <p id="horseStart"></p>
+
+    <p id="horseGuts"></p>
+
+    <p id="horseTemper"></p>
+
+    <p id="horseLuck"></p>
+
+    <p id="horseStyle"></p>
+
+    <br>
+
+    <button id="detailBackBtn">
+
+        戻る
+
+    </button>
+
+</div>
+
+<div id="entryScreen" style="display:none;">
+
+    <h1>📰 出馬表</h1>
+
+    <div id="entryInfo"></div>
+
+    <hr>
+
+    <div id="entryList"></div>
+
+    <br>
+
+    <button id="entryRaceBtn">
+
+        🏇 レース開始
+
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- レース画面 -->
+<!-- ========================= -->
+
+<div id="raceScreen" style="display:none;">
+
+    <h1>🏇 レース実況</h1>
+
+    <hr>
+
+    <h2 id="raceDistance"></h2>
+
+    <p id="raceInfo"></p>
+
+    <hr>
+
+    <h3>実況</h3>
+
+    <div id="raceInfoPanel">
+
+        <div id="predictionPanel">
+
+    <h3>🎯 AI予想</h3>
+
+    <p id="predictionText"></p>
+
+</div>
+
+    <h3>🏇 レース情報</h3>
+
+    <p id="courseName"></p>
+
+    <p id="distanceInfo"></p>
+
+    <p id="weatherInfo"></p>
+
+    <p id="groundInfo"></p>
+
+</div>
+
+    <div id="commentary"></div>
+
+    <hr>
+
+    <h3>順位</h3>
+
+    <div id="ranking"></div>
+
+    <div id="winnerPanel" style="display:none;">
+
+    <h1>🏆 WINNER!!</h1>
+
+    <h2 id="winnerPanelName"></h2>
+
+    <p>素晴らしいレースでした！</p>
+
+</div>
+
+    <div id="resultButtonArea" style="display:none;">
+
+    <button id="resultBtn">
+        🏆 リザルトを見る
+    </button>
+
+    </div>
+
+    </div>
+
+<!-- ========================= -->
+<!-- リザルト画面 -->
+<!-- ========================= -->
+
+<div id="resultScreen" style="display:none;">
+
+    <h1>🏆 RESULT</h1>
+
+    <div id="resultCard">
+
+        <h2 id="winnerName"></h2>
+
+        <p id="winnerInfo"></p>
+
+        <hr>
+
+        <div id="resultRanking"></div>
+
+    </div>
+
+    <br>
+
+    <button id="nextNewsBtn">
+        📰 ニュースを見る
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- Derby News -->
+<!-- ========================= -->
+
+<div id="newsScreen" style="display:none;">
+
+    <h1>📰 DERBY NEWS</h1>
+
+    <div id="newsList">
+
+        <div class="newsCard">
+
+            <h2>本日のトップニュース</h2>
+
+            <p>
+                PROJECT DERBYへようこそ。
+                今日も新たなドラマが始まります。
+            </p>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <button id="newsBackBtn">
+        タイトルへ戻る
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- 主人公作成 -->
+<!-- ========================= -->
+
+<div id="newGameScreen" style="display:none;">
+
+    <h1>NEW GAME</h1>
+
+    <p>主人公の名前</p>
+
+    <input
+        type="text"
+        id="playerName"
+        placeholder="名前を入力">
+
+    <br><br>
+
+    <button id="createPlayerBtn">
+        ゲーム開始
+    </button>
+
+    <button id="newGameBackBtn">
+        戻る
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- HOME -->
+<!-- ========================= -->
+
+<div id="homeScreen" style="display:none;">
+
+    <h1>🏠 HOME</h1>
+
+    <h2 id="homePlayerName"></h2>
+
+<p id="homeAge"></p>
+
+<p id="homeJob"></p>
+
+<p id="homeDate"></p>
+
+<button id="nextWeekBtn">
+    ▶ 次の週
+</button>
+
+<hr>
+
+<p id="homeMoney"></p>
+
+<p id="homeSalary"></p>
+
+    <hr>
+
+    <button id="workBtn">
+        💼 仕事
+    </button>
+
+    <button id="raceCourseBtn">
+        🏇 競馬場
+    </button>
+
+    <button id="profileBtn">
+        👤 プロフィール
+    </button>
+
+    <button id="saveBtn">
+        💾 セーブ
+    </button>
+
+</div>
+  
+<!-- ========================= -->
+<!-- Opening -->
+<!-- ========================= -->
+
+<div id="openingScreen" style="display:none;">
+
+    <h1>PROJECT DERBY</h1>
+
+    <p id="openingText"></p>
+
+    <br>
+
+    <button id="openingNextBtn">
+        次へ
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- Dialogue -->
+<!-- ========================= -->
+
+<div id="dialogueScreen" style="display:none;">
+
+    <h2 id="dialoguePlace"></h2>
+
+    <div id="dialogueCharacter">
+
+        <!-- 後で立ち絵 -->
+
+    </div>
+
+    <h3 id="dialogueName"></h3>
+
+    <div id="dialogueText"></div>
+
+    <button id="dialogueNextBtn">
+
+        ▶ 次へ
+
+    </button>
+
+</div>
+
+<!-- ========================= -->
+<!-- 仕事画面 -->
+<!-- ========================= -->
+
+<div id="workScreen" style="display:none;">
+
+    <h1>💼 会社</h1>
+
+    <p id="workMessage"></p>
+
+    <br>
+
+    <button id="workNextBtn">
+        次へ
+    </button>
+
+</div>
+
+<script src="js/horses.js"></script>
+<script src="js/race.js"></script>
+<script src="js/commentary.js"></script>
+<script src="js/result.js"></script>
+<script src="js/news.js"></script>
+<script src="js/player.js"></script>
+<script src="js/life.js"></script>
+<script src="js/entry.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
