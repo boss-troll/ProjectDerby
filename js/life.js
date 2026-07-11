@@ -24,7 +24,7 @@ function startOpening(){
 
 dialogueScreen.style.display = "block";
 
-startDialogue();
+startDialogue(companyDialogue);
 
     openingIndex = 0;
 
@@ -48,30 +48,7 @@ document.getElementById("createPlayerBtn").onclick = function(){
 
     player.name = name;
 
-    homePlayerName.textContent =
-"名前：" + player.name;
-
-homeAge.textContent =
-"年齢：" + player.age + "歳";
-
-homeJob.textContent =
-"職業：" + player.job;
-
-homeDate.textContent =
-"日付：" +
-player.year + "年 " +
-player.month + "月 第" +
-player.week + "週";
-
-homeMoney.textContent =
-"所持金：" +
-player.money.toLocaleString() +
-"円";
-
-homeSalary.textContent =
-"年収：" +
-player.salary.toLocaleString() +
-"円";
+  showHome();
 
 newGameScreen.style.display = "none";
 
@@ -151,6 +128,71 @@ workMessage.innerHTML =
 };
 
 // ==========================
+// HOME更新
+// ==========================
+function showHome(){
+
+    homePlayerName.textContent =
+        "名前：" + player.name;
+
+    homeAge.textContent =
+        "年齢：" + player.age + "歳";
+
+    homeJob.textContent =
+        "職業：" + player.job;
+
+    homeDate.textContent =
+        "日付：" +
+        player.year + "年 " +
+        player.month + "月 第" +
+        player.week + "週";
+
+    homeMoney.textContent =
+        "所持金：" +
+        player.money.toLocaleString() +
+        "円";
+
+    homeSalary.textContent =
+        "年収：" +
+        player.salary.toLocaleString() +
+        "円";
+
+}
+
+// ==========================
+// イベントデータ
+// ==========================
+const weeklyEvents = [
+
+    {
+        title:"平凡な一週間",
+        text:"今週もいつも通り仕事を終えた。"
+    },
+
+    {
+        title:"競馬の広告",
+        text:"駅で日本ダービーのポスターを見かけた。"
+    },
+
+    {
+        title:"競馬新聞",
+        text:"コンビニで競馬新聞が目に入った。"
+    }
+
+];
+
+// ==========================
+// ランダムイベント取得
+// ==========================
+function getWeeklyEvent(){
+
+    return weeklyEvents[
+        Math.floor(Math.random()*weeklyEvents.length)
+    ];
+
+}
+
+// ==========================
 // 1週間進める
 // ==========================
 function nextWeek(){
@@ -176,16 +218,9 @@ function nextWeek(){
     }
 
     // HOME更新
-    homeDate.textContent =
-        "日付：" +
-        player.year + "年 " +
-        player.month + "月 第" +
-        player.week + "週";
 
-    homeMoney.textContent =
-        "所持金：" +
-        player.money.toLocaleString() +
-        "円";
+
+   showHome();
 
 }
 
@@ -225,7 +260,10 @@ document.getElementById("workNextBtn").onclick = function(){
     nextWeek();
 
     // イベント発生
-    weeklyEvent();
+    const event = getWeeklyEvent();
+
+console.log(event.title);
+console.log(event.text);
 
     // HOMEへ戻る
     homeScreen.style.display = "block";
@@ -253,70 +291,27 @@ document.getElementById("openingNextBtn").onclick = function(){
 
 };
 
-
-// ==========================
-// 会話システム
-// ==========================
-
-const dialogueData = [
-
-{
-    place:"会社・昼休み",
-    name:"👨 先輩",
-    text:"今週ダービーなんよ。"
-},
-
-{
-    place:"会社・昼休み",
-    name:"主人公",
-    text:"ダービー？"
-},
-
-{
-    place:"会社・昼休み",
-    name:"👨 先輩",
-    text:"日曜日、競馬場行かん？"
-}
-
-];
-
-let dialogueIndex = 0;
-
-function startDialogue(){
-
-    dialogueIndex = 0;
-
     showDialogue();
 
+// ==========================
+// Event
+// ==========================
+
+function showEvent(title,text,next){
+
+    showScreen(eventScreen);
+
+    eventTitle.textContent = title;
+
+    eventText.textContent = text;
+
+    eventNextBtn.onclick = next;
+
 }
 
-function showDialogue(){
+// ---------- 休日 ----------
+holidayBtn.onclick = function(){
 
-    dialoguePlace.textContent =
-        dialogueData[dialogueIndex].place;
-
-    dialogueName.textContent =
-        dialogueData[dialogueIndex].name;
-
-    dialogueText.textContent =
-        dialogueData[dialogueIndex].text;
-
-}
-
-dialogueNextBtn.onclick = function(){
-
-    dialogueIndex++;
-
-    if(dialogueIndex >= dialogueData.length){
-
-        dialogueScreen.style.display = "none";
-
-        homeScreen.style.display = "block";
-
-        return;
-
-    }
-
-    showDialogue();
+    alert("休日システム開発中");
 
 };
