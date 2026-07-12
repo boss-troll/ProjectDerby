@@ -13,13 +13,10 @@ body{
 
     min-height:100vh;
 
-    display:flex;
-
-    justify-content:center;
-
-    align-items:flex-start;
 
     padding:30px 0;
+
+    text-align:center;
 
 }
 
@@ -31,7 +28,8 @@ body{
 #homeScreen,
 #workScreen,
 #openingScreen,
-#outingScreen{
+#outingScreen,
+#studyScreen{
 
     width:650px;
 

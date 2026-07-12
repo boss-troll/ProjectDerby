@@ -48,6 +48,9 @@ document.getElementById("createPlayerBtn").onclick = function(){
 
     player.name = name;
 
+    player.schedule =
+"先輩と競馬場へ行く約束をしている。";
+
   showHome();
 
 newGameScreen.style.display = "none";
@@ -78,74 +81,56 @@ startOpening();
 
 
 
-// ---------- 仕事 ----------
-document.getElementById("workBtn").onclick = function(){
+//     const workEvents = [
 
-    homeScreen.style.display = "none";
+//     {
+//         title:"平凡な一週間",
+//         text:"今週も無事に仕事を終えた。"
+//     },
 
-    workScreen.style.display = "block";
+//     {
+//         title:"上司",
+//         text:"上司に仕事を褒められた。"
+//     },
 
-    const workEvents = [
+//     {
+//         title:"残業",
+//         text:"残業で少し疲れてしまった。"
+//     },
 
-    {
-        title:"平凡な一週間",
-        text:"今週も無事に仕事を終えた。"
-    },
+//     {
+//         title:"同期",
+//         text:"同期と協力して仕事を終えた。"
+//     },
 
-    {
-        title:"上司",
-        text:"上司に仕事を褒められた。"
-    },
+//     {
+//         title:"静かな一日",
+//         text:"今日は特に変わったことはなかった。"
+//     }
 
-    {
-        title:"残業",
-        text:"残業で少し疲れてしまった。"
-    },
+// ];
 
-    {
-        title:"同期",
-        text:"同期と協力して仕事を終えた。"
-    },
-
-    {
-        title:"静かな一日",
-        text:"今日は特に変わったことはなかった。"
-    }
-
-];
-
-const event =
-workEvents[
-    Math.floor(Math.random()*workEvents.length)
-];
-
-workMessage.innerHTML =
-
-"<h2>" + event.title + "</h2>" +
-
-"<p>" + event.text + "</p>";
-
-};
 
 // ==========================
 // HOME更新
 // ==========================
-function showHome(){
+
+        function showHome(){
 
     homePlayerName.textContent =
         "名前：" + player.name;
 
-    homeAge.textContent =
-        "年齢：" + player.age + "歳";
-
-    homeJob.textContent =
-        "職業：" + player.job;
+    homeProfile.textContent =
+    player.age + "歳　" + player.job;
 
     homeDate.textContent =
         "日付：" +
         player.year + "年 " +
         player.month + "月 第" +
         player.week + "週";
+
+    homeFatigue.textContent =
+    "疲労：" + player.fatigue + " / 200";
 
     homeMoney.textContent =
         "所持金：" +
@@ -157,7 +142,15 @@ function showHome(){
         player.salary.toLocaleString() +
         "円";
 
+    homeNews.textContent =
+        player.news;
+
+    // ←これを追加
+    homeSchedule.textContent =
+        player.schedule;
+
 }
+
 
 // ==========================
 // イベントデータ
@@ -197,6 +190,14 @@ function getWeeklyEvent(){
 // ==========================
 function nextWeek(){
 
+    // 平日の仕事
+player.fatigue += 20;
+
+// 最大200まで
+if(player.fatigue > 200){
+    player.fatigue = 200;
+}
+
     player.week++;
 
     if(player.week > 4){
@@ -204,8 +205,16 @@ function nextWeek(){
         player.week = 1;
         player.month++;
 
-        // 給料日（月末）
-        player.money += 300000;
+       // 給料日（月末）
+const monthlySalary = Math.floor(player.salary / 12);
+
+player.money += monthlySalary;
+
+alert(
+    "💰 給料日！\n\n+" +
+    monthlySalary.toLocaleString() +
+    "円"
+);
 
     }
 
@@ -217,10 +226,31 @@ function nextWeek(){
 
     }
 
-    // HOME更新
+// ==========================
+// 今月のニュース更新
+// ==========================
 
+if(monthlyNews[player.month]){
 
-   showHome();
+    const newsList = monthlyNews[player.month];
+
+    player.news =
+        newsList[
+            Math.floor(Math.random() * newsList.length)
+        ];
+
+}else{
+
+    player.news =
+        "🐎 今週も全国でレースが開催されます。";
+
+}
+
+// ==========================
+// HOME更新
+// ==========================
+
+showHome();
 
 }
 
@@ -316,9 +346,24 @@ document.getElementById("goHomeBtn").onclick = function(){
 };
 
 // 競馬場
+// 外出 → 競馬場
 document.getElementById("goRaceCourseBtn").onclick = function(){
 
-    alert("競馬場は次のSTEPで作ります。");
+    showScreen(raceCourseScreen);
+
+};
+
+// 競馬場 → 外出
+document.getElementById("backOutingBtn").onclick = function(){
+
+    showScreen(outingScreen);
+
+};
+
+// 入場
+document.getElementById("enterRaceCourseBtn").onclick = function(){
+
+    alert("次のSTEPで競馬場の中へ入ります。");
 
 };
 
@@ -328,3 +373,83 @@ document.getElementById("goShopBtn").onclick = function(){
     alert("ショップは準備中です。");
 
 };
+
+// ==========================
+// 休む
+// ==========================
+
+document.getElementById("restBtn").onclick = function(){
+
+    // 土日は家でゆっくり休む
+    player.fatigue -= 25;
+
+    if(player.fatigue < 0){
+
+        player.fatigue = 0;
+
+    }
+
+    // 平日は仕事
+    player.fatigue += 10;
+
+    if(player.fatigue > 100){
+
+        player.fatigue = 100;
+
+    }
+
+    nextWeek();
+
+    showHome();
+
+};
+// ==========================
+// 休日を選ぶ
+// ==========================
+
+function selectHoliday(schedule){
+
+    player.schedule = schedule;
+
+    showHome();
+
+}
+// ==========================
+// 競馬ニュース
+// ==========================
+
+const horseNews = [
+
+    "🏆 日本ダービーまであと1週間！",
+
+    "🌟 注目の2歳馬がデビュー予定。",
+
+    "😢 ベテラン競走馬が引退を発表。",
+
+    "☔ 今週は雨予報。馬場状態に注目。",
+
+    "🔥 今週はGⅠ開催！"
+
+];
+
+// ==========================
+// 勉強
+// ==========================
+
+function study(type){
+
+    player.knowledge++;
+
+    player.knowledgeUnlock[type] = 1;
+
+    player.fatigue += 5;
+
+    if(player.fatigue > 200){
+        player.fatigue = 200;
+    }
+
+    player.schedule = "📚 勉強した";
+
+    showHome();   // ← データ更新だけ
+
+}

@@ -10,6 +10,48 @@ document.getElementById("raceBtn").onclick = function(){
          showScreen(raceSetup);
 };
 
+document.getElementById("studyBtn").onclick = function(){
+
+    showScreen(studyScreen);
+
+};
+
+document.getElementById("studyBackBtn").onclick = function(){
+
+    showScreen(homeScreen);
+
+};
+
+document.getElementById("studyStyleBtn").onclick = function(){
+
+    study("style");
+
+    showScreen(homeScreen);
+
+};
+
+document.getElementById("studyPaddockBtn").onclick = function(){
+
+    study("paddock");
+
+    showScreen(homeScreen);
+
+};
+
+document.getElementById("studyTrainingBtn").onclick = function(){
+
+    study("training");
+    
+    showScreen(homeScreen);
+
+};
+
+document.getElementById("restBtn").onclick = function(){
+
+    showScreen(restScreen);
+
+};
+
 // ---------- レース設定 → タイトル ----------
 document.getElementById("backBtn").onclick = function(){
 

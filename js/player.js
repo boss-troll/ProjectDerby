@@ -4,25 +4,53 @@
 
 const player = {
 
+    // 基本情報
     name: "",
 
     age: 22,
 
+    job: "会社員",
+
+    // 日付
     year: 2026,
 
     month: 4,
 
     week: 1,
 
-    money: 1500000,
+        // お金
+    money: 300000,
+    salary: 3000000,
 
-    salary: 3800000,
 
-    reputation: 0,
+    // 今週の予定
+    schedule: "特に予定はありません。",
 
-    owner: false,
+    news:"今週は特にニュースはありません。",
 
-job: "会社員"
+    // ステータス
+    fatigue: 0,        // 疲労
+    motivation: 100,   // やる気
+
+    // 競馬
+    knowledge: 0,      // 競馬知識
+    // 解放済み知識
+knowledgeUnlock: {
+
+    style: 0,      // 脚質
+    paddock: 0,    // パドック
+    training: 0,   // 調教
+    bloodline: 0,  // 血統
+    race: 0,       // レースの見方
+    jockey: 0,     // 騎手
+    course: 0      // コース
+
+},
+    // 将来実装予定
+// 馬主編で使用する隠しパラメータ
+// horseLove: 0,
+    reputation: 0,     // 評判
+    owner: false       // 馬主かどうか
 
 };
 // ==========================
@@ -39,27 +67,28 @@ function updateDate(){
     `${year}年${month}月　第${week}週`;
 
 }
+
 document.getElementById("nextWeekBtn").onclick = function(){
 
-    week++;
+    // ==========================
+    // 平日は自動で仕事
+    // ==========================
 
-    if(week > 4){
+    player.fatigue += 20;
 
-        week = 1;
+// 疲労は200まで
+if(player.fatigue > 200){
+    player.fatigue = 200;
+}
 
-        month++;
+    // 1週間進む
+    nextWeek();
 
-    }
+    // ランダムイベント
+    weeklyEvent();
 
-    if(month > 12){
-
-        month = 1;
-
-        year++;
-
-    }
-
-    updateDate();
+    // HOME更新
+    showHome();
 
 };
-updateDate();
+

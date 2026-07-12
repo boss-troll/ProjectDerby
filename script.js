@@ -36,6 +36,7 @@ const workScreen = document.getElementById("workScreen");
 const openingScreen = document.getElementById("openingScreen");
 const dialogueScreen = document.getElementById("dialogueScreen");
 const outingScreen = document.getElementById("outingScreen");
+const raceCourseScreen = document.getElementById("raceCourseScreen");
 
 // ---------- 一覧 ----------
 const horseList = document.getElementById("horseList");

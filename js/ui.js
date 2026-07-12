@@ -23,7 +23,11 @@ const screens = [
     workScreen,
     openingScreen,
     dialogueScreen,
-    outingScreen
+    outingScreen,
+    raceCourseScreen,
+
+    studyScreen,
+    restScreen
 
 ];
 
