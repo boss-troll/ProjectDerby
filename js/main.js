@@ -41,7 +41,7 @@ document.getElementById("studyPaddockBtn").onclick = function(){
 document.getElementById("studyTrainingBtn").onclick = function(){
 
     study("training");
-    
+
     showScreen(homeScreen);
 
 };
@@ -49,6 +49,30 @@ document.getElementById("studyTrainingBtn").onclick = function(){
 document.getElementById("restBtn").onclick = function(){
 
     showScreen(restScreen);
+
+};
+
+// ---------- 休む実行 ----------
+document.getElementById("restHomeBtn").onclick = function(){
+
+    player.fatigue -= 25;
+
+    if(player.fatigue < 0){
+        player.fatigue = 0;
+    }
+
+    nextWeek();
+
+    showHome();
+
+    showScreen(homeScreen);
+
+};
+
+// ---------- 休む画面 → HOME ----------
+document.getElementById("restBackBtn").onclick = function(){
+
+    showScreen(homeScreen);
 
 };
 

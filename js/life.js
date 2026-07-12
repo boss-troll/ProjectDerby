@@ -378,31 +378,7 @@ document.getElementById("goShopBtn").onclick = function(){
 // 休む
 // ==========================
 
-document.getElementById("restBtn").onclick = function(){
 
-    // 土日は家でゆっくり休む
-    player.fatigue -= 25;
-
-    if(player.fatigue < 0){
-
-        player.fatigue = 0;
-
-    }
-
-    // 平日は仕事
-    player.fatigue += 10;
-
-    if(player.fatigue > 100){
-
-        player.fatigue = 100;
-
-    }
-
-    nextWeek();
-
-    showHome();
-
-};
 // ==========================
 // 休日を選ぶ
 // ==========================
