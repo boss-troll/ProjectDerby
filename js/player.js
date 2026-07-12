@@ -34,16 +34,20 @@ const player = {
 
     // 競馬
     knowledge: 0,      // 競馬知識
+
     // 解放済み知識
 knowledgeUnlock: {
 
+    beginner: 0,   // 初心者講座
     style: 0,      // 脚質
     paddock: 0,    // パドック
     training: 0,   // 調教
-    bloodline: 0,  // 血統
-    race: 0,       // レースの見方
     jockey: 0,     // 騎手
-    course: 0      // コース
+    distance: 0,   // 距離適性
+    ground: 0,     // 馬場適性
+    bloodline: 0,  // 血統
+    pace: 0,       // ペース
+    race: 0        // レース戦略
 
 },
     // 将来実装予定

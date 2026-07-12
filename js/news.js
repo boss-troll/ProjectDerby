@@ -7,7 +7,7 @@
 // HOMEニュース
 // ==========================
 
-const homeNews = {
+const monthlyNews = {
 
     1: [
         "🎍 新年最初の重賞が開催！",

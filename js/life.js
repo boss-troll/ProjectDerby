@@ -429,3 +429,15 @@ function study(type){
     showHome();   // ← データ更新だけ
 
 }
+// ==========================
+// 休む
+// ==========================
+
+function restPlayer(){
+
+    // 回復量（20～40）
+    const recover = Math.floor(Math.random() * 21) + 20;
+
+    player.fatigue = Math.max(0, player.fatigue - recover);
+
+}

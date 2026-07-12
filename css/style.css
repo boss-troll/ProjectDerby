@@ -702,3 +702,38 @@ h2{
     line-height:1.8;
 
 }
+/* ==========================
+   休む画面
+========================== */
+
+
+
+/* ==========================
+   競馬図鑑
+========================== */
+
+#dictionaryScreen{
+
+    text-align:center;
+
+}
+
+#dictionaryList{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+    margin:30px auto;
+
+    width:300px;
+
+}
+
+#dictionaryList button{
+
+    padding:15px;
+
+    font-size:20px;
+
+}

@@ -437,28 +437,7 @@
 <!-- Outing -->
 <!-- ========================= -->
 
-<div id="outingScreen" style="display:none;">
 
-    <h1>🚶 外出</h1>
-
-    <button id="goRaceCourseBtn">
-        🏇 競馬場
-    </button>
-
-    <button id="goShopBtn">
-        🛍 ショップ（準備中）
-    </button>
-
-    <button id="goHomeBtn">
-        🏠 HOMEへ戻る
-    </button>
-
-</div>
-
-
-<!-- ========================= -->
-<!-- Study -->
-<!-- ========================= -->
 
 <div id="studyScreen" style="display:none;">
 
@@ -466,19 +445,47 @@
 
     <p>今日は何を勉強する？</p>
 
-    <button id="studyPaddockBtn">
-        👀 パドック
+    <button id="studyBeginnerBtn">
+        📖 初心者講座
     </button>
 
-    <button id="studyStyleBtn">
-        🐎 脚質
-    </button>
-
-    <button id="studyTrainingBtn">
-        💪 調教
+    <button id="dictionaryBtn">
+    📚 競馬図鑑
     </button>
 
     <button id="studyBackBtn">
+        ← HOMEへ戻る
+    </button>
+
+</div>
+
+<!-- studyScreenはここで終わる -->
+
+<div id="dictionaryScreen" style="display:none;">
+
+    <h1>📚 競馬図鑑</h1>
+
+    <div id="dictionaryList">
+
+        <button id="dictionaryBeginnerBtn">
+            📖 初心者講座
+        </button>
+
+        <button id="dictionaryStyleBtn">
+            🔒 脚質
+        </button>
+
+        <button id="dictionaryPaddockBtn">
+            🔒 パドック
+        </button>
+
+        <button id="dictionaryTrainingBtn">
+            🔒 調教
+        </button>
+
+    </div>
+
+    <button id="dictionaryBackBtn">
         ← HOMEへ戻る
     </button>
 
@@ -494,8 +501,9 @@
 
     <p>今日はゆっくり休みます。</p>
 
+
     <button id="restHomeBtn">
-        💤 休む
+        💤 就寝する
     </button>
 
     <button id="restBackBtn">

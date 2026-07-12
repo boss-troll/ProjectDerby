@@ -22,27 +22,17 @@ document.getElementById("studyBackBtn").onclick = function(){
 
 };
 
-document.getElementById("studyStyleBtn").onclick = function(){
+// ---------- 勉強 → 図鑑 ----------
+document.getElementById("dictionaryBtn").onclick = function(){
 
-    study("style");
-
-    showScreen(homeScreen);
-
-};
-
-document.getElementById("studyPaddockBtn").onclick = function(){
-
-    study("paddock");
-
-    showScreen(homeScreen);
+    showScreen(dictionaryScreen);
 
 };
 
-document.getElementById("studyTrainingBtn").onclick = function(){
+// ---------- 初心者講座 ----------
+document.getElementById("studyBeginnerBtn").onclick = function(){
 
-    study("training");
-
-    showScreen(homeScreen);
+    alert("初心者講座（仮）");
 
 };
 
@@ -55,11 +45,7 @@ document.getElementById("restBtn").onclick = function(){
 // ---------- 休む実行 ----------
 document.getElementById("restHomeBtn").onclick = function(){
 
-    player.fatigue -= 25;
-
-    if(player.fatigue < 0){
-        player.fatigue = 0;
-    }
+    restPlayer();
 
     nextWeek();
 
@@ -73,6 +59,10 @@ document.getElementById("restHomeBtn").onclick = function(){
 document.getElementById("restBackBtn").onclick = function(){
 
     showScreen(homeScreen);
+
+    // 次回のためにメッセージをリセット
+    document.getElementById("restMessage").style.display = "none";
+    document.getElementById("restMessage").innerHTML = "";
 
 };
 
@@ -322,5 +312,36 @@ document.getElementById("resultBtn").onclick = function(){
     document.getElementById("resultButtonArea").style.display = "none";
 
     showResult();
+
+};
+// ==========================
+// 初心者講座
+// ==========================
+document.getElementById("studyBeginnerBtn").onclick = function(){
+
+    alert(
+`📖 初心者講座
+
+競馬は馬の能力だけではなく、
+
+・脚質
+・調教
+・パドック
+・騎手
+
+など様々な要素で結果が変わります。
+
+これから少しずつ学んでいきましょう！`
+    );
+
+    player.knowledge++;
+
+    player.knowledgeUnlock.beginner = 1;
+
+};
+// ---------- 図鑑 → 勉強 ----------
+document.getElementById("dictionaryBackBtn").onclick = function(){
+
+    showScreen(studyScreen);
 
 };
