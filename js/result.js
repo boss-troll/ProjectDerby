@@ -16,27 +16,27 @@ function showResult(){
     let star = "★★★☆☆";
     let comment = "平均的なレースでした。";
 
-    if(resultTime <= courseRecord[raceGoal]){
+   if(resultTime <= raceRecords[raceGoal]){
 
-        star = "★★★★★";
-        comment = "🏆 レコード更新！！";
+    star = "★★★★★";
+    comment = "🏆 レコード更新！！";
 
-    }else if(resultTime <= courseRecord[raceGoal] + 1){
+}else if(resultTime <= raceRecords[raceGoal] + 1){
 
-        star = "★★★★☆";
-        comment = "素晴らしいタイム！";
+    star = "★★★★☆";
+    comment = "素晴らしいタイム！";
 
-    }else if(resultTime <= courseRecord[raceGoal] + 2){
+}else if(resultTime <= raceRecords[raceGoal] + 2){
 
-        star = "★★★☆☆";
-        comment = "好タイムでした。";
+    star = "★★★☆☆";
+    comment = "好タイムでした。";
 
-    }else{
+}else{
 
-        star = "★★☆☆☆";
-        comment = "次回に期待！";
+    star = "★★☆☆☆";
+    comment = "次回に期待！";
 
-    }
+}
 
     // 優勝馬データ
 winnerInfo.innerHTML = `

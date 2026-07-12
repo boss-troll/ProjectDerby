@@ -60,9 +60,7 @@ document.getElementById("restBackBtn").onclick = function(){
 
     showScreen(homeScreen);
 
-    // 次回のためにメッセージをリセット
-    document.getElementById("restMessage").style.display = "none";
-    document.getElementById("restMessage").innerHTML = "";
+    
 
 };
 

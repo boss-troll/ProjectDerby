@@ -11,6 +11,19 @@
 window.raceData = [];
 window.raceFinished = false;
 
+let raceTimer = null;
+// レコードタイム
+const raceRecords = {
+
+    1200: 67.8,
+    1400: 80.5,
+    1600: 92.1,
+    1800: 105.4,
+    2000: 118.3,
+    2400: 143.8,
+    3200: 193.6
+
+};
 
 // ----------------------
 // 競馬場
