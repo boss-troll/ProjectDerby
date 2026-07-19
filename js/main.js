@@ -29,10 +29,63 @@ document.getElementById("dictionaryBtn").onclick = function(){
 
 };
 
+document.getElementById("dictionaryBtn").onclick = function(){
+
+    if(player.knowledgeUnlock.style >= 1){
+
+        document.getElementById("dictionaryStyleBtn").textContent =
+        "🐎 脚質";
+
+    }else{
+
+        document.getElementById("dictionaryStyleBtn").textContent =
+        "🔒 脚質";
+
+    }
+
+    showScreen(dictionaryScreen);
+
+};
+
 // ---------- 初心者講座 ----------
 document.getElementById("studyBeginnerBtn").onclick = function(){
 
-    alert("初心者講座（仮）");
+    // 初回だけ会話イベント
+    if(player.knowledgeUnlock.beginner === 0){
+
+        player.knowledge++;
+
+        player.knowledgeUnlock.beginner = 1;
+
+        startDialogue(beginnerDialogue);
+
+        return;
+
+    }
+
+    // 2回目以降は復習
+openDictionary(
+    "📖 初心者講座",
+`
+<b>競馬とは？</b><br><br>
+
+競馬は馬の速さを競うスポーツです。<br><br>
+
+プレイヤーは馬の能力や騎手、馬場状態などを予想して馬券を購入します。<br><br>
+
+PROJECT DERBYでは、少しずつ知識を身につけながら競馬を楽しめるようになります。
+`
+);
+
+};
+
+document.getElementById("studyStyleBtn").onclick = function(){
+
+    player.knowledge++;
+
+    player.knowledgeUnlock.style = 1;
+
+    alert("『脚質』を習得した！");
 
 };
 
@@ -43,9 +96,21 @@ document.getElementById("restBtn").onclick = function(){
 };
 
 // ---------- 休む実行 ----------
-document.getElementById("restHomeBtn").onclick = function(){
 
-    restPlayer();
+  document.getElementById("restHomeBtn").onclick = function(){
+
+    const event =
+        restEvents[
+            Math.floor(Math.random() * restEvents.length)
+        ];
+
+    alert(event);
+
+    player.fatigue -= 25;
+
+    if(player.fatigue < 0){
+        player.fatigue = 0;
+    }
 
     nextWeek();
 
@@ -343,3 +408,48 @@ document.getElementById("dictionaryBackBtn").onclick = function(){
     showScreen(studyScreen);
 
 };
+
+document.getElementById("dictionaryStyleBtn").onclick = function(){
+
+    if(player.knowledgeUnlock.style === 0){
+
+        alert("まだ習得していません。");
+
+        return;
+
+    }
+
+    openDictionary(
+    "🐎 脚質",
+`
+<b>逃げ</b><br>
+スタートから先頭を走り、そのまま押し切る脚質。<br><br>
+
+<b>先行</b><br>
+先頭集団でレースを進め、最後まで粘る脚質。<br><br>
+
+<b>差し</b><br>
+中団で脚をため、直線で一気に伸びる脚質。<br><br>
+
+<b>追込</b><br>
+最後方から豪快に追い込む脚質。
+`
+);
+
+};
+
+document.getElementById("dictionaryDetailBackBtn").onclick = function(){
+
+    showScreen(dictionaryScreen);
+
+};
+
+function openDictionary(title, text){
+
+    dictionaryTitle.textContent = title;
+
+    dictionaryText.innerHTML = text;
+
+    showScreen(dictionaryDetailScreen);
+
+}

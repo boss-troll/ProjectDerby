@@ -36,7 +36,8 @@ body{
 #newsScreen,
 #raceCourseScreen,
 #dialogueScreen,
-#eventScreen{
+#eventScreen,
+#dictionaryDetailScreen{
 
     width:650px;
 
