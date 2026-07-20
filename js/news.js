@@ -191,3 +191,30 @@ document.getElementById("newsBackBtn").onclick = function(){
     titleScreen.style.display = "block";
 
 };
+function getHorseHeadline(horse){
+
+    const headlines = [
+
+        "前走で好内容。注目の一頭。",
+
+        "末脚に期待が集まる。",
+
+        "重賞初制覇を狙う。",
+
+        "勢いそのままに連勝なるか。",
+
+        "近走安定。上位進出に期待。",
+
+        "今日の走りにファンの視線が集まる。",
+
+        "クラシック候補との声も。",
+
+        "悲願の勝利なるか。"
+
+    ];
+
+    return headlines[
+        Math.floor(Math.random() * headlines.length)
+    ];
+
+}

@@ -20,17 +20,72 @@ function showEntry(){
 
     raceHorses.forEach((horse,index)=>{
 
+        const frameNumber = [
+"①","②","③","④","⑤","⑥","⑦","⑧",
+"⑨","⑩","⑪","⑫","⑬","⑭","⑮","⑯",
+"⑰","⑱"
+];
+
         entryList.innerHTML += `
 
-        <div class="entryHorse">
+<div class="entryHorse">
 
-            <b>${index+1}.</b>
+    <h3>${frameNumber[index]} ${horse.name}</h3>
 
-            ${horse.name}
+    <p>
 
-        </div>
+⭐ ${horse.popularity}番人気
 
-        `;
+&nbsp;&nbsp;
+
+🎯 ${horse.odds}倍
+</p>
+
+<p>
+脚質：${horse.style}
+</p>
+
+<p>
+性齢：
+${horse.sex}${horse.age}
+</p>
+
+<p>
+調教：${horse.training}
+</p>
+
+<p>
+
+馬体重：
+${horse.weight}kg
+
+(${horse.weightDiff>=0?"+":""}${horse.weightDiff})
+
+</p>
+
+<p>
+近5走
+${horse.recent.join("")}
+</p>
+
+<p>
+パドック：
+${horse.paddockComment}
+</p>
+
+    <p>
+    調子：${horse.condition}
+    </p>
+
+    <hr>
+
+    <p class="entryStory">
+    ${getHorseHeadline(horse)}
+    </p>
+
+</div>
+
+`;
 
     });
 

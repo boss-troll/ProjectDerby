@@ -122,30 +122,126 @@ function getConditionRate(condition){
     return 1;
 
 }
+// ----------------------
+// 調教補正
+// ----------------------
 
+function getTrainingRate(training){
+
+    switch(training){
+
+        case "S": return 1.04;
+        case "A": return 1.02;
+        case "B": return 1.00;
+        case "C": return 0.98;
+        case "D": return 0.96;
+
+    }
+
+    return 1;
+
+}
+// ----------------------
+// 馬体重補正
+// ----------------------
+
+function getWeightRate(weightDiff){
+
+    if(weightDiff >= 2 && weightDiff <= 8){
+        return 1.01;
+    }
+
+    if(weightDiff >= -1 && weightDiff <= 1){
+        return 1.00;
+    }
+
+    if(weightDiff >= -8 && weightDiff <= -2){
+        return 0.99;
+    }
+
+    return 0.98;
+
+}
+// ----------------------
+// 距離適性補正
+// ----------------------
+
+function getDistanceRate(horse){
+
+    switch(raceGoal){
+
+        case 1200:
+        case 1400:
+            return horse.short / 100;
+
+        case 1600:
+            return horse.mile / 100;
+
+        case 1800:
+        case 2000:
+        case 2400:
+            return horse.middle / 100;
+
+        case 3200:
+            return horse.long / 100;
+
+        default:
+            return 1;
+
+    }
+
+}
 // ----------------------
 // レース作成
 // ----------------------
+
+// ==========================
+// 調教評価
+// ==========================
+
+function generateTraining(horse){
+
+    const value =
+        horse.power +
+        Math.random()*10-5;
+
+    if(value>=94) return "S";
+    if(value>=91) return "A";
+    if(value>=88) return "B";
+    if(value>=85) return "C";
+
+    return "D";
+
+}
 
 function createRace(horses){
 
     raceFinished=false;
 
-    raceData = horses.map(horse => ({
+    raceData = horses.map(horse=>{
 
-    ...horse,
+    const weightData = generateWeight(horse);
 
-    position:0,
+    return{
 
-    currentSpeed:0,
+        ...horse,
 
-    staminaLeft:horse.stamina,
+        position:0,
+        currentSpeed:0,
+        staminaLeft:horse.stamina,
+        fatigue:0,
 
-    fatigue:0,
+        training:generateTraining(horse),
+        paddockComment:generatePaddockComment(horse),
 
-    condition:getCondition()
+        weight:weightData.weight,
+        weightDiff:weightData.diff,
 
-}));
+        condition:getCondition()
+
+    };
+
+});
 
     resetCommentary();
 
@@ -194,7 +290,8 @@ function createRace(horses){
 
     });
 
-    predictionText.innerHTML=
+    predictionText.innerHTML =
+getRaceAdvice();
 `
 ◎ ${predict[0].name}<br>
 
@@ -216,6 +313,12 @@ function advanceRace(){
 
         // 調子補正
         move *= getConditionRate(horse.condition);
+        // 調教補正
+        move *= getTrainingRate(horse.training);
+        // 馬体重補正
+        move *= getWeightRate(horse.weightDiff);
+        // 距離適性
+        move *= getDistanceRate(horse);
 
         // ランダム補正
         move += Math.floor(Math.random()*5)-2;
@@ -474,5 +577,109 @@ function runRace(){
         },2000);
 
     }
+
+}
+function getRaceAdvice(){
+
+    let advice = "";
+    let nige = 0;
+let senkou = 0;
+let sashi = 0;
+let oikomi = 0;
+
+for(const horse of raceHorses){
+
+    switch(horse.style){
+
+        case "逃げ":
+            nige++;
+            break;
+
+        case "先行":
+            senkou++;
+            break;
+
+        case "差し":
+            sashi++;
+            break;
+
+        case "追込":
+            oikomi++;
+            break;
+
+    }
+
+}
+
+    // 距離
+    if(raceGoal >= 2000){
+
+        advice +=
+        "📏 長めの距離なのでスタミナも重要です。<br><br>";
+
+    }else{
+
+        advice +=
+        "⚡ 短距離なのでスピード勝負になりそうです。<br><br>";
+
+    }
+advice +=
+`🏇 出走馬の脚質
+
+逃げ ${nige}頭
+先行 ${senkou}頭
+差し ${sashi}頭
+追込 ${oikomi}頭
+
+<br><br>`;
+// ペース予想
+// 脚質を勉強していない場合
+if(!player.knowledgeUnlock.style){
+
+    advice +=
+    "📚 「脚質」を勉強すると、レース展開のアドバイスが見られるようになります。<br><br>";
+
+}else{
+
+    // 脚質の頭数
+    advice +=
+`🏇 出走馬の脚質
+
+逃げ ${nige}頭
+先行 ${senkou}頭
+差し ${sashi}頭
+追込 ${oikomi}頭
+
+<br><br>`;
+
+    // ペース予想
+    if(nige >= 4){
+
+    advice +=
+    "🔥 逃げ馬が多いため、前半はハイペースになりそうです。<br>";
+
+    advice +=
+    "💡 ハイペースでは最後に脚を使える馬が有利になることがあります。<br><br>";
+
+  }else if(nige === 1){
+
+    advice +=
+    "🐎 逃げ馬が1頭だけです。単騎逃げになるかもしれません。<br>";
+
+    advice +=
+    "💡 自分のペースで走れると、そのまま粘り切ることがあります。<br><br>";
+
+   }else{
+
+    advice +=
+    "⚖️ 極端なペースにはなりにくそうです。<br>";
+
+    advice +=
+    "💡 能力差や展開が勝負を分けそうです。<br><br>";
+
+}
+
+}
+    return advice;
 
 }
